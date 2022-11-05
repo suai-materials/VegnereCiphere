@@ -22,7 +22,6 @@ public class EncryptPassword
             return Char.IsUpper(ch)
                 ? alphabet[offset - (alphabet.Count - ind )]
                 : Char.ToLower(alphabet[offset - (alphabet.Count - ind)]);
-
         return Char.IsUpper(ch) ? alphabet[ind + offset] : Char.ToLower(alphabet[ind + offset]);
     }
 
@@ -41,6 +40,7 @@ public class EncryptPassword
     {
         string newString = "";
         key = key.ToUpper();
+        int keyIndex = 0;
         for (int i = 0; i < _password.Length; i++)
         {
             if (!alphabet.Contains(char.ToUpper(_password[i])))
@@ -49,7 +49,8 @@ public class EncryptPassword
                 continue;
             }
 
-            newString += char.ToString(EncryptCh(_password[i], alphabet.IndexOf(key[i % key.Length]) + 1));
+            while (alphabet.IndexOf(key[keyIndex % key.Length]) == -1) keyIndex++;
+            newString += char.ToString(EncryptCh(_password[i], alphabet.IndexOf(key[keyIndex++ % key.Length])));
         }
 
         return newString;
@@ -59,6 +60,7 @@ public class EncryptPassword
     {
         string newString = "";
         key = key.ToUpper();
+        int keyIndex = 0;
         for (int i = 0; i < _password.Length; i++)
         {
             if (!alphabet.Contains(char.ToUpper(_password[i])))
@@ -66,8 +68,8 @@ public class EncryptPassword
                 newString += char.ToString(_password[i]);
                 continue;
             }
-
-            newString += char.ToString(DecodeCh(_password[i], alphabet.IndexOf(key[i % key.Length]) + 1));
+            while (alphabet.IndexOf(key[keyIndex % key.Length]) == -1) keyIndex++;
+            newString += char.ToString(DecodeCh(_password[i], alphabet.IndexOf(key[keyIndex++ % key.Length])));
         }
 
         return newString;

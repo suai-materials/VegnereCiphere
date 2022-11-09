@@ -1,0 +1,17 @@
+Задание 3
+
+Реализовать шифрование и дешифрование строки с помощью шифра Вижинера.
+
+Код:
+
+EncryptPassword.cs (Основной класс приложения)
+
+#+INCLUDE: ./VigenereCipher/EncryptPassword.cs src c++
+
+EncryptClassTests.cs (Тесты над классом выше)
+
+#+INCLUDE: ./VigenereCipher/EncryptClassTests.cs src c++
+
+Тесты:
+
+[[./1.jpg]]
